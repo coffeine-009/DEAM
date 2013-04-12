@@ -32,6 +32,6 @@ USE `deam`;
 /* Create tables	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*/
 /* -#  #- */
 CREATE TABLE ``(
-
+	`id`		INTEGER AUTO_INCREMENT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
