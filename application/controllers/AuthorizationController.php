@@ -26,6 +26,17 @@ class AuthorizationController extends Zend_Controller_Action
     public function registrationAction()
     {
         $form = new Application_Form_Registration();
+        
+        if( $this -> getRequest() -> isPost() )
+        {
+        	if( $form -> isValid( $this -> getRequest() -> getPost() ) )
+        	{
+        		echo 'ok';
+        	}
+        }
+        
+        //- Init view -//
+        $this -> view -> form = $form;
     }
 
     public function registrationsuccessAction()
