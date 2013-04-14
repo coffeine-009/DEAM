@@ -15,8 +15,17 @@
         <controllerFile controllerName="Professor">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Authorization">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="login"/>
+          <actionMethod actionName="logout"/>
+          <actionMethod actionName="registration"/>
+          <actionMethod actionName="registrationsuccess"/>
+        </controllerFile>
       </controllersDirectory>
-      <formsDirectory enabled="false"/>
+      <formsDirectory>
+        <formFile formName="Registration"/>
+      </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory/>
       <modulesDirectory enabled="false"/>
@@ -30,6 +39,21 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Professor">
             <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authorization">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authorization">
+            <viewScriptFile forActionName="login"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authorization">
+            <viewScriptFile forActionName="logout"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authorization">
+            <viewScriptFile forActionName="registration"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Authorization">
+            <viewScriptFile forActionName="registrationsuccess"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -66,6 +90,7 @@
         <testApplicationBootstrapFile filesystemName="bootstrap.php"/>
         <testApplicationControllerDirectory>
           <testApplicationControllerFile filesystemName="ProfessorControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="AuthorizationControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>
