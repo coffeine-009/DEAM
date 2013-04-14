@@ -13,7 +13,19 @@ class IndexController extends Zend_Controller_Action
         // action body//TODO
         
     }
-
-
+	//----------------- books --------------------
+	public function bookeditAction()
+	{
+	
+	}
+	public function bookviewAction()
+	{
+		
+	}
+	public function bookdelteAction()
+	{
+	
+	}
+	//============================================
 }
 

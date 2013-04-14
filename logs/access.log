@@ -1,0 +1,8 @@
+127.0.0.1 - - [14/Apr/2013:14:37:37 +0200] "GET / HTTP/1.1" 200 74 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:37:38 +0200] "GET /favicon.ico HTTP/1.1" 404 1188 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:37:57 +0200] "GET /professor HTTP/1.1" 200 130 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:38:08 +0200] "GET /professor/displayprofile/ HTTP/1.1" 500 2246 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:39:34 +0200] "GET /professor/displayprofile/ HTTP/1.1" 200 35 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:46:23 +0200] "GET /professor/displayprofile/ HTTP/1.1" 200 175 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:14:47:00 +0200] "GET /professor/displayprofile/ HTTP/1.1" 200 111 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
+127.0.0.1 - - [14/Apr/2013:15:22:18 +0200] "GET /professor/displayprofile/ HTTP/1.1" 200 111 "-" "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0"
