@@ -33,7 +33,27 @@ class ProfessorController extends Zend_Controller_Action
 		$this->view->teaching_works='teaching works';
 		
 		$this->view->contacts = 'контакти';
-
+		
+		$tmp = new DEAM_User_User(	);
+		$tmp->setIdRole(1);
+		$tmp->setActive(0);
+		$tmp->setBirthday('1990-12-12');
+		$tmp->setFirstName('my_first_name');
+		$tmp->setSecondName('my_second_name');
+		$tmp->setFatherName('my_father_name');
+		$tmp->setPost('same text to post');
+	//		echo $tmp->create();
+		/*
+		echo '<pre>';
+			var_dump($tmp->readAll());
+		echo '</pre></br>';
+		
+		$tmp->setId(2);
+		echo '<pre>';
+			var_dump($tmp->delete());
+		echo '</pre></br>';
+		*/
+		
 	}
 	
 	public function editprofileAction()
