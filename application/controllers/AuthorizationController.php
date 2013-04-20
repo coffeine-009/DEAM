@@ -13,6 +13,7 @@ class AuthorizationController extends Zend_Controller_Action
         // action body
     }
 
+	//- Sign In -//
     public function loginAction()
     {
 	    //- Create form -//
