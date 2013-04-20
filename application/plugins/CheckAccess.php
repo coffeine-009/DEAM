@@ -53,15 +53,18 @@ class CheckAccess
 		
 		//- Get resource -//
 		$resources = array( 
-			'error', 'index', 'locale', 'auth', 
-			'client', 'realtor', 'admin' 
+			'error', 'index', 'locale', 'authorization', 
+			'professor', 'admin' 
 		);
 		
 		$resource = $Request -> getControllerName();
 		
 		//- Test params -//
-		if( !Zend_Validate :: is( $resource, 'InArray', array( $resources ) ) 
-			&& !$this -> _acl -> isAllowed( $role, $resource, 'view' )
+		if( 
+			!( 
+				Zend_Validate :: is( $resource, 'InArray', array( $resources ) ) 
+				&& $this -> _acl -> isAllowed( $this -> role, $resource, 'view' ) 
+			)
 		)
 		{		
 			//- Access deny -//

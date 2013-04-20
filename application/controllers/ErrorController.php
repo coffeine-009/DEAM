@@ -46,6 +46,10 @@ class ErrorController extends Zend_Controller_Action
         return $log;
     }
 
-
+    //- Access of denied -//
+	public function accessdenyAction()
+	{
+		$this -> view -> msg = 'Access deny';
+	}
 }
 

@@ -79,16 +79,10 @@ class Acl_Acl
 		$this -> add( new Zend_Acl_Resource( self :: RESOURCE_GUEST ) );
 		
 		//- Professor -//
-		$this -> add(
-			new Zend_Acl_Resource( self :: RESOURCE_PROFESSOR ), 
-			self :: RESOURCE_GUEST
-		);
+		$this -> add( new Zend_Acl_Resource( self :: RESOURCE_PROFESSOR ) );
 		
 		//- Administrator -//
-		$this -> add(
-			new Zend_Acl_Resource( self :: RESOURCE_ADMINISTRATOR ), 
-			self :: RESOURCE_PROFESSOR
-		);
+		$this -> add( new Zend_Acl_Resource( self :: RESOURCE_ADMINISTRATOR )	);
 
 
 		//- Set permittion -//

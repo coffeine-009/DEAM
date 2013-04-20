@@ -6,6 +6,7 @@ class AuthorizationController extends Zend_Controller_Action
     public function init()
     {
         /* Initialize action controller here */
+    	$this -> view -> errors = array();
     }
 
     public function indexAction()
@@ -31,7 +32,7 @@ class AuthorizationController extends Zend_Controller_Action
 					$password 	= $data[ 'password' ];
 						
 				//- Create adapter for authenticate -//
-				Zend_Loader :: loadFile( 'classes/Auth/Adapter.php' );
+				Zend_Loader :: loadFile( 'Auth/Adapter.php' );
 				
 				$adapter = new Auth_Adapter( $login, $password );
 							 
@@ -55,7 +56,6 @@ class AuthorizationController extends Zend_Controller_Action
 	    					$this -> view -> errors, 
 	    					'Error, Can not authentificate user. Repeat, please!'
 	    				);
-	    				return;
 					}
 			}else
 				{
@@ -64,7 +64,6 @@ class AuthorizationController extends Zend_Controller_Action
     					$this -> view -> errors, 
     					'Error, data is not valid. Repeat, please!'
     				);
-    				return;
 				}
 		}
 		

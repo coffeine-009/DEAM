@@ -5,7 +5,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	//- Routes -//
 	public function _initRoute()
 	{
-		$router = Zend_Controller_Front :: getInstance() 
+		$router = Zend_Controller_Front :: getInstance()
 					-> getRouter();
 
 		//- Get routes -//
@@ -29,6 +29,23 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 	
 		//- Registry adapter -//
 		Zend_Registry :: set( 'db', $db );
+	}
+	
+	///	*** Plugins	***	***	***	***	***	***	***	***	***	***	***	***	***	***	///
+	//- Acl -//
+	public function _initPluginAcl()
+	{
+		//- Load files -//
+		Zend_Loader :: loadFile( APPLICATION_PATH . '/classes/Acl/Acl.php' );
+		Zend_Loader :: loadFile( APPLICATION_PATH . '/plugins/CheckAccess.php' );
+				
+		//- Register plugin -//
+		Zend_Controller_Front :: getInstance() 
+		-> registerPlugin( 
+			new CheckAccess( 
+				new Acl_Acl() 
+			) 
+		);
 	}
 }
 
