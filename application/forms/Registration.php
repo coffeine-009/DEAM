@@ -35,6 +35,8 @@ class Application_Form_Registration
 			$username -> setLabel( 'Username' ) 
 				-> setOptions( 
 					array(
+						'id'		=> 'username', 					
+						//- Params -//
 						'size' 		=> '30', 
 						'maxlength'	=> '32'
 					)
@@ -276,7 +278,7 @@ class Application_Form_Registration
 				)
 			)
 		);
-		
+
 		
 		//- Submit -//
 		$this -> addElements(

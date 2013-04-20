@@ -1,7 +1,32 @@
 <?php
 
-class Auth_Adapter implements Zend_Auth_Adapter_Interface
+class Auth_Adapter
+	implements
+		Zend_Auth_Adapter_Interface
 {
+	///	***	Constants	***	///
+	const AUTH = 
+	"SELECT 
+		user.id, 
+		role.title AS role, 
+		email.contact 
+	FROM 
+		(user 
+			LEFT JOIN 
+		email 
+			ON( user.id = email.id_user )
+		)
+			LEFT JOIN 
+		role 
+			ON( role.id = user.id_role ) 
+	WHERE 
+		email.contact = '%s' 
+		AND 
+		user.password = MD5( '%s' ) 
+	LIMIT 
+		1
+	";
+		
 	///	***	Properties	***	///
 	protected $link;
 	protected $userData;
@@ -9,10 +34,11 @@ class Auth_Adapter implements Zend_Auth_Adapter_Interface
 	///	***	Methods		***	///
 	public function __construct( /*string*/$UserName, /*string*/$Password )
 	{
+		//- Set properties -//
 		$this -> username = $UserName;
 		$this -> password = $Password;
 		
-		$param = new Zend_Config_Ini( 'configs/application.ini', 'production' );
+/*		$param = new Zend_Config_Ini( 'configs/application.ini', 'production' );
 	
 		$params = array(
 			'host'		=> $param -> resources -> db -> params -> host, 
@@ -22,39 +48,29 @@ class Auth_Adapter implements Zend_Auth_Adapter_Interface
 		);
 		
 		$this -> link = Zend_Db :: factory( $param  -> resources -> db -> adapter, $params );
+		*/
+		$this -> link = Zend_Registry :: get( 'db' );
 	}
 	
 	public function authenticate()
-	{
-		$sql = "SELECT 
-			user.id, 
-			role.title AS role, 
-			email.mail 
-		FROM 
-			(user 
-				LEFT JOIN 
-			email 
-				ON( user.id = email.id_user )
+	{		
+		$res = $this -> link -> query(
+			sprintf(
+				self :: AUTH, 
+				//- Params -//
+				$this -> username, 
+				$this -> password
 			)
-				LEFT JOIN 
-			role 
-				ON( role.id = user.id_role ) 
-		WHERE 
-			email.mail = '{$this -> username}' 
-			AND 
-			user.password = MD5( '{$this -> password}' ) 
-		LIMIT 
-			1
-		";
+		) -> fetch( PDO :: FETCH_OBJ );
 		
-		$res = $this -> link -> query( $sql ) -> fetch();
-		
+		//- Test response from DB -//
 		if( $res )
 		{
+			//- Set properties -//
 			$this -> userData = $res;
 			
 			return new Zend_Auth_Result(
-				Zend_Auth_Result :: SUCCESS, $res[ 'id' ], array()
+				Zend_Auth_Result :: SUCCESS, $res -> id, array()
 			);
 		}else
 			{

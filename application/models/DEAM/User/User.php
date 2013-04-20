@@ -183,6 +183,7 @@ class DEAM_User_User
 			$this -> db_link -> query(
 					sprintf(
 						self :: SQL_INSERT,
+						//- Params -//
 						$this->id_role,
 						$this->first_name,
 						$this->second_name,
