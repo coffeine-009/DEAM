@@ -45,6 +45,9 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 CREATE TABLE `user`(
 	`id`			INTEGER AUTO_INCREMENT, /* Identificator */
 	`id_role`		INTEGER NOT NULL, 		/* Id of role */
+
+	`password`		VARCHAR( 128 ) NOT NULL, 
+
 	/* Names */
 	`first_name`	VARCHAR( 20 ) NOT NULL, /* First name of user 	*/
 	`second_name`	VARCHAR( 20 ) NOT NULL, /* Second name of user 	*/

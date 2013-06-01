@@ -11,7 +11,30 @@ class AuthorizationController extends Zend_Controller_Action
 
     public function indexAction()
     {
-        // action body
+    	//- Send activation letter -//
+        $letter = new Coffeine_Messenger_Mail_Main(
+			"vitalij-bass@meta.ua",
+	    	'Registration. deam.if.ua'
+	    );
+	    $letter -> setTemplate(
+	    	APPLICATION_PATH . '/templates/',
+	    	'LetterActivation_uk_UA.phtml', // . Zend_Registry :: get( 'Zend_Locale' ) . '.phtml',
+	    	array(
+		    	'user'	=> (object)array(
+			    	//'id'	=> $this -> id, 
+			    	'secureHash'	=> 'developer'
+	    		)
+	    	)
+	    );
+    	$letter -> setAddressSrc( 'DEAM' );
+    	$letter -> init();
+	    		 
+    	if( !$letter -> send() )
+    	{
+    		//- ERROR -//
+    		throw new Zend_Controller_Action_Exception( 'Email not sent' );
+    	}
+    	echo 'ok';
     }
 
 	//- Sign In -//
@@ -114,6 +137,7 @@ class AuthorizationController extends Zend_Controller_Action
         			{        		
 		        		//- Create new user -//
 		        		$user = new DEAM_User();
+		        			$user -> id_role = 2;//TODO: Get role from DB
 		        			$user -> password = md5( $data[ 'password' ] );
 		        			$user -> first_name = $data[ 'first_name' ];
 		        			$user -> second_name = $data[ 'second_name' ];
@@ -157,38 +181,37 @@ class AuthorizationController extends Zend_Controller_Action
 		        			$queue -> secure_hach = $secure_hash -> getPassword();
 		        			
 		        		$queue -> save();
-		        			
+		        				        			
 		        			
 		        		//- Send activation letter -//
 		        		$letter = new Coffeine_Messenger_Mail_Main(
 							"vitalij-bass@meta.ua",
-					    	'Registration. orenda.com.ua'
+					    	'Registration. deam.if.ua'
 					    );
 					    $letter -> setTemplate(
 					    	APPLICATION_PATH . '/templates/',
-					    	Zend_Registry :: get( 'Zend_Locale' ) . '_Mail.phtml',
+					    	'LetterActivation_uk_UA.phtml', // . Zend_Registry :: get( 'Zend_Locale' ) . '.phtml',
 					    	array(
-						    	'locale'=> Zend_Registry :: get( 'Zend_Locale' ), 
 						    	'user'	=> (object)array(
-							    	'id'	=> $this -> id, 
-							    	'password'	=> $this -> password, 
-							    	'secureHash'	=> $this -> secureHash
+							    	//'id'	=> $this -> id, 
+							    	'secureHash'	=> $secure_hash -> getPassword()
 					    		)
 					    	)
 					    );
-			    		$letter -> setAddressSrc( 'orenda.com.ua' );
+			    		$letter -> setAddressSrc( 'DEAM' );
 			    		$letter -> init();
 					    		 
 			    		if( !$letter -> send() )
 			    		{
 			    			//- ERROR -//
-			    			return false;
+			    			throw new Zend_Controller_Action_Exception( 'Email not sent' );
 			    		}
 					    		 
-					    		
-		        		//TODO: Send email and create user
-		        		        		
-		        		
+			    		//- Add message -//
+			    		$this -> _helper -> flashMessenger -> addMessage(
+				    		'You registration is success!'
+			    		);//TODO: Other msg
+			    		
 		        		//- Registration success -//
 		        		$this -> _redirect( '/registration/success' );
         			}
@@ -199,19 +222,9 @@ class AuthorizationController extends Zend_Controller_Action
         $this -> view -> form = $form;
     }
 
+    //- Registration success -//
     public function registrationsuccessAction()
     {
-        // action body
+		$this -> view -> msg = $this -> _helper -> flashMessenger -> getMessages();
     }
-
-
 }
-
-
-
-
-
-
-
-
-

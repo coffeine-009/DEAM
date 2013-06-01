@@ -10,13 +10,15 @@
 <body>
 
 	<p>
-		Благодарим Вас за регистрацию на orenduem.com.ua<br /> Чтобы
-		активировать заявку, пройдите, пожалуйста, по этой ссылке:<br /> <a
-			href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/<?php echo $this -> locale; ?>/client/<?php echo $this -> user -> id; ?>/email/confirmation/<?php echo $this -> user -> secureHash; ?>">
-			подтверждение </a> <br />Не отвечайте на это письмо, так как оно было
-		сгенерировано автоматически.<br /> <br />
-		<?php echo 'Пароль для входа на сайт: <strong>' . $this -> user -> password . '</strong>'; ?>
-		<br /> <br /> С уважением,<br /> Администрация.
+		Thank you for registration on <b>http://<?php echo $_SERVER['HTTP_HOST']; ?></b>. 
+		For activation your account click please this  
+		<a href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/email/confirmation/<?php echo $this -> user -> secureHash; ?>">link</a>. 
+	</p>
+	<p>
+		if you not registering no this web site then ignore please this message.
+	</p>
+	<p>
+		Administrations of <b>http://<?php echo $_SERVER['HTTP_HOST']; ?></b>
 	</p>
 
 </body>

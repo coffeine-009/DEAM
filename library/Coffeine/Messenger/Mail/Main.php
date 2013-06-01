@@ -59,7 +59,7 @@ class Coffeine_Messenger_Mail_Main
 	public function init()// : bool
 	{
 		//- Read configuration -//
-		$config = new Zend_Config_Ini( 'configs/application.ini', 'production' );
+		$config = new Zend_Config_Ini( APPLICATION_PATH . '/configs/application.ini', 'production' );
 		//- Init -//
 		$this -> addressSrc = $config -> resources -> mail -> smtp -> params -> emailFrom;
 
@@ -114,8 +114,7 @@ class Coffeine_Messenger_Mail_Main
 			//- Init message and send -//
 			$this -> linkMail
 				-> setFrom(
-					'info@orenduem.com.ua', 
-					'orenduem.com.ua' 
+					$this -> addressSrc 
 				)
 				-> addTo( $this -> addressDsc )
 				-> setSubject( $this -> subject )

@@ -9,6 +9,7 @@ Doctrine_Manager::getInstance()->bindComponent('DEAM_User', 'doctrine');
  * 
  * @property integer $id
  * @property integer $id_role
+ * @property string $password
  * @property string $first_name
  * @property string $second_name
  * @property string $father_name
@@ -50,6 +51,15 @@ abstract class DEAM_BaseUser extends Doctrine_Record
         $this->hasColumn('id_role', 'integer', 4, array(
              'type' => 'integer',
              'length' => 4,
+             'fixed' => false,
+             'unsigned' => false,
+             'primary' => false,
+             'notnull' => true,
+             'autoincrement' => false,
+             ));
+        $this->hasColumn('password', 'string', 128, array(
+             'type' => 'string',
+             'length' => 128,
              'fixed' => false,
              'unsigned' => false,
              'primary' => false,
