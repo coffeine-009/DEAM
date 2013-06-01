@@ -341,24 +341,7 @@ CREATE TABLE `concurces`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
-<<<<<<< HEAD
 
-/*#- Administration -#  */
-/* -# Queue for activations #- */
-CREATE TABLE `account_activation`(
-	`id`			INTEGER AUTO_INCREMENT, 
-	`id_user`		INTEGER NOT NULL, 
-	`secure_hach`	VARCHAR( 256 ), 
-	`creation`		TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-
-	/* Keys */
-	PRIMARY KEY( `id` ), 
-
-	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
-		ON UPDATE CASCADE
-		ON DELETE CASCADE
-)
-=======
 CREATE TABLE `consultation`(
 	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
 	`id_user`			INTEGER NOT NULL, 		/* Id of user 		*/
@@ -375,4 +358,19 @@ CREATE TABLE `consultation`(
 		ON DELETE RESTRICT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
->>>>>>> b56d733f8b5b08d5b2dac7b5273db5cdaad9086d
+
+/*#- Administration -#  */
+/* -# Queue for activations #- */
+CREATE TABLE `account_activation`(
+	`id`			INTEGER AUTO_INCREMENT, 
+	`id_user`		INTEGER NOT NULL, 
+	`secure_hach`	VARCHAR( 256 ), 
+	`creation`		TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+
+	/* Keys */
+	PRIMARY KEY( `id` ), 
+
+	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+)
