@@ -1,0 +1,24 @@
+﻿
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+
+<body>
+
+	<p>
+		Благодарим Вас за регистрацию на orenduem.com.ua<br /> Чтобы
+		активировать заявку, пройдите, пожалуйста, по этой ссылке:<br /> <a
+			href="http://<?php echo $_SERVER['HTTP_HOST']; ?>/<?php echo $this -> locale; ?>/client/<?php echo $this -> user -> id; ?>/email/confirmation/<?php echo $this -> user -> secureHash; ?>">
+			подтверждение </a> <br />Не отвечайте на это письмо, так как оно было
+		сгенерировано автоматически.<br /> <br />
+		<?php echo 'Пароль для входа на сайт: <strong>' . $this -> user -> password . '</strong>'; ?>
+		<br /> <br /> С уважением,<br /> Администрация.
+	</p>
+
+</body>
+
+</html>

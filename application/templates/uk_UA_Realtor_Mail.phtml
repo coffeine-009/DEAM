@@ -1,0 +1,20 @@
+﻿<!-- Mail -->
+<html>
+
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+</head>
+
+<body>
+	<p>
+	<?php echo $this -> user -> firstName; ?>
+		(
+		<?php echo $this -> user -> company; ?>
+		), благодарим за регистрацию.<br /> Ваш пароль для входа на <a
+			href="http://<?php echo $_SERVER['HTTP_HOST']; ?>">сайт</a>: <strong>
+			<?php echo $this -> user -> password; ?> </strong>
+
+</body>
+</html>

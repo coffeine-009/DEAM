@@ -146,8 +146,46 @@ class AuthorizationController extends Zend_Controller_Action
 		        			$web_site -> save();
 		        		}
 		        		
+		        		
+		        		//- Generate secure hash -//
+		        		$secure_hash = new Coffeine_Crypt_PassGenerator( 32 );
+		        			$secure_hash -> generate();
+		        		
+		        		//- Save Secure hash -//
+		        		$queue = new DEAM_AccountActivation();
+		        			$queue -> id_user = (int)$user -> id;
+		        			$queue -> secure_hach = $secure_hash -> getPassword();
+		        			
+		        		$queue -> save();
+		        			
+		        			
 		        		//- Send activation letter -//
-		        		$letter = new Coffeine_Messenger_Mail_Main();
+		        		$letter = new Coffeine_Messenger_Mail_Main(
+							"vitalij-bass@meta.ua",
+					    	'Registration. orenda.com.ua'
+					    );
+					    $letter -> setTemplate(
+					    	APPLICATION_PATH . '/templates/',
+					    	Zend_Registry :: get( 'Zend_Locale' ) . '_Mail.phtml',
+					    	array(
+						    	'locale'=> Zend_Registry :: get( 'Zend_Locale' ), 
+						    	'user'	=> (object)array(
+							    	'id'	=> $this -> id, 
+							    	'password'	=> $this -> password, 
+							    	'secureHash'	=> $this -> secureHash
+					    		)
+					    	)
+					    );
+			    		$letter -> setAddressSrc( 'orenda.com.ua' );
+			    		$letter -> init();
+					    		 
+			    		if( !$letter -> send() )
+			    		{
+			    			//- ERROR -//
+			    			return false;
+			    		}
+					    		 
+					    		
 		        		//TODO: Send email and create user
 		        		        		
 		        		
