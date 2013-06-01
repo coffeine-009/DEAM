@@ -157,6 +157,7 @@ class Application_Form_Registration
 				-> setRequired( true )
 				-> addValidator( new Zend_Validate_NotEmpty() );
 				
+				
 		$submit = new Zend_Form_Element_Submit( 'submit' );
 			$submit -> setLabel( 'Register' );
 			
@@ -305,6 +306,7 @@ class Application_Form_Registration
 						'class'	=> 'license'
 					)
 				)
+					
 			)
 		);
 		
