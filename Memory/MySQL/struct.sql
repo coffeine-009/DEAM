@@ -30,7 +30,6 @@ CREATE DATABASE `deam`
 USE `deam`;
 
 /* Create tables	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*/
-/*	#- Users	---	---	---	---	---	---	---	---	---	---	---	---	---	--- -#	*/
 /* -# Role of users #- */
 CREATE TABLE `role`(
 	`id`			INTEGER AUTO_INCREMENT, /* Identificator 				*/
@@ -46,8 +45,6 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 CREATE TABLE `user`(
 	`id`			INTEGER AUTO_INCREMENT, /* Identificator */
 	`id_role`		INTEGER NOT NULL, 		/* Id of role */
-	/* Access */
-	`password`		VARCHAR( 128 ) NOT NULL, /* Password of access */
 	/* Names */
 	`first_name`	VARCHAR( 20 ) NOT NULL, /* First name of user 	*/
 	`second_name`	VARCHAR( 20 ) NOT NULL, /* Second name of user 	*/
@@ -165,12 +162,10 @@ CREATE TABLE `book`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
-
 /* -# Publications #- */
 CREATE TABLE `publication`(
 	`id`				INTEGER AUTO_INCREMENT, /* Identificator 	*/
 	`id_user`			INTEGER NOT NULL, 		/* Id of user 		*/
-
 	`title`				VARCHAR( 64 ) NOT NULL, /* Title of book			*/
 	`text`				TEXT, 					/* Text of publication		*/
 	/* Data */
@@ -179,7 +174,6 @@ CREATE TABLE `publication`(
 	`yeay_publication`	DATE NOT NULL, 	/* Time of publication 				*/
 --	`page_count`		INTEGER NOT NULL, /* Count pages of book 			*/
 --	`sared`				BOOLEAN NOT NULL DEFAULT false, /* Shared work 		*/
-
 	`creation`			TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
 
 	/* Keys */
@@ -194,12 +188,13 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 
 /* -# Scientific_activity #- */
 CREATE TABLE `scientific_activity`(
-	`id`				INTEGER AUTO_INCREMENT, /* Identificator 	*/
-	`id_user`			INTEGER NOT NULL, 		/* Id of user 		*/
-
-	`title`				VARCHAR( 64 ) NOT NULL, /* Title of book			*/
-	`description`		TEXT, 			/* Description about current book	*/
-	/* Data */
+	`id`				INTEGER AUTO_INCREMENT, -- /* Identificator 	*/
+	`id_user`			INTEGER NOT NULL, 		--/* Id of user 		*/
+    `rank`              INTEGER NOT NULL,
+	`title`				VARCHAR( 64 ) NOT NULL, --/*  			*/
+    `candidate`         TEXT,       --       /* professors .......   , */
+	`description`		TEXT, 		--	/* Description full information about user	*/
+--	/* Data */
 --	`authors`			TEXT, 			/* Authors of book 					*/
 --	`edition`			VARCHAR( 256 ), /* Title of edition this work 		*/
 --	`yeay_publication`	DATE NOT NULL, 	/* Time of publication 				*/
@@ -207,16 +202,27 @@ CREATE TABLE `scientific_activity`(
 --	`sared`				BOOLEAN NOT NULL DEFAULT false, /* Shared work 		*/
 
 	`creation`			TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-
-	/* Keys */
+--	/* Keys */
 	PRIMARY KEY( `id` ), 
 
 	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT,
+        
+   	FOREIGN KEY( `rank` ) REFERENCES `rank`( `id` )
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
+CREATE TABLE `rank`(
+	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
+	`rank`			TEXT, 
+
+	/* Keys */
+	PRIMARY KEY( `id` )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
 
 /* -# Reseach seminar #- */
 CREATE TABLE `reseach_seminar`(
@@ -335,6 +341,7 @@ CREATE TABLE `concurces`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
+<<<<<<< HEAD
 
 /*#- Administration -#  */
 /* -# Queue for activations #- */
@@ -351,3 +358,21 @@ CREATE TABLE `account_activation`(
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )
+=======
+CREATE TABLE `consultation`(
+	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
+	`id_user`			INTEGER NOT NULL, 		/* Id of user 		*/
+
+	`date_from`			TIMESTAMP, /* Title of concurces*/
+	`date_to`			TIMESTAMP, /* Description about current concurces	*/
+	
+	`creation`			TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+
+	/* Keys */
+	PRIMARY KEY( `id` ), 
+	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
+		ON UPDATE CASCADE
+		ON DELETE RESTRICT
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
+>>>>>>> b56d733f8b5b08d5b2dac7b5273db5cdaad9086d
