@@ -91,9 +91,9 @@ class AuthorizationController extends Zend_Controller_Action
     	);
     	
     	//- Include JS -//
-    	$this -> view -> headScript() -> appendFile(
+    	/*$this -> view -> headScript() -> appendFile(
     		'/client/application/views/scripts/authorization/registration.js'
-    	);
+    	);*/
     	
     	//- Create form of registration -//
         $form = new Application_Form_Registration();

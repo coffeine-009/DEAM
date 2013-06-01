@@ -141,8 +141,8 @@ class Application_Form_Registration
 		$licenseText = new Zend_Form_Element_Textarea( 'license_text' );
 			$licenseText -> setOptions(
 				array(
-					'rows'	=> 8, 
-					'cols'	=> 50
+					'rows'	=> 4, 
+					//'cols'	=> 80
 				)
 			);
 				
