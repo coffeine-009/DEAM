@@ -1,76 +1,91 @@
 <?php
+///	***	Class :: Adapter :: Authorization	***	***	***	***	***	***	***	***	///
 
+	/**	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
+	 * 																*
+	 * @copyroght 2013
+	 * 		by
+	 * 	@author Vitaliy Tsutsman
+	 * 
+	 * @date 2013-05-03 23:13:18 :: 2013-05-03 23:15:00
+	 * 
+	 * @address Ukraine/Petranka/Gryshevskii/234
+	 * 
+	 * @description
+	 * 	Auth adapter used ORM Doctrine.
+	 * 																*
+	*///***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
+
+///	***	Code	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	///
 class Auth_Adapter
 	implements
 		Zend_Auth_Adapter_Interface
-{
-	///	***	Constants	***	///
-	const AUTH = 
-	"SELECT 
-		user.id, 
-		role.title AS role, 
-		email.contact 
-	FROM 
-		(user 
-			LEFT JOIN 
-		email 
-			ON( user.id = email.id_user )
-		)
-			LEFT JOIN 
-		role 
-			ON( role.id = user.id_role ) 
-	WHERE 
-		email.contact = '%s' 
-		AND 
-		user.password = MD5( '%s' ) 
-	LIMIT 
-		1
-	";
-		
+{		
 	///	***	Properties	***	///
-	protected $link;
 	protected $userData;
 	
 	///	***	Methods		***	///
-	public function __construct( /*string*/$UserName, /*string*/$Password )
+	public function __construct( 
+		/*string*/$UserName, 
+		/*string*/$Password 
+	)
 	{
 		//- Set properties -//
 		$this -> username = $UserName;
 		$this -> password = $Password;
-		
-/*		$param = new Zend_Config_Ini( 'configs/application.ini', 'production' );
-	
-		$params = array(
-			'host'		=> $param -> resources -> db -> params -> host, 
-			'username'	=> $param -> resources -> db -> params -> username, 
-			'password'	=> $param -> resources -> db -> params -> password, 
-			'dbname'	=> $param -> resources -> db -> params -> dbname
-		);
-		
-		$this -> link = Zend_Db :: factory( $param  -> resources -> db -> adapter, $params );
-		*/
-		$this -> link = Zend_Registry :: get( 'db' );
 	}
 	
-	public function authenticate()
-	{		
-		$res = $this -> link -> query(
-			sprintf(
-				self :: AUTH, 
-				//- Params -//
-				$this -> username, 
-				$this -> password
-			)
-		) -> fetch( PDO :: FETCH_OBJ );
+	//- Authenticate -//
+	public function authenticate()// : bool
+	{
+		//- Query to DB -//
+		$response = Doctrine_Query :: create()
+			//- First query -//
+			/*-> from( "Jms_Email e" )
+			-> leftJoin( "e.User u" )
+			-> leftJoin( "u.Role" )*/			
+			//- Better query -//
+			-> from( "Jms_User u" )
+			-> addFrom( "u.Email e" )
+			-> addFrom( "u.Role r" )
+			//- Where -//
+			-> where( 
+				"address = '{$this -> username}' 
+				AND 
+				password = MD5( '{$this -> password}' )" 
+			)		
+			-> limit( 1 );
 		
+		$response -> execute();
+		
+		//- Get response -//
+		$userData = $response->fetchArray();
+
 		//- Test response from DB -//
-		if( $res )
+		if( count( $userData ) === 1 )
 		{
-			//- Set properties -//
-			$this -> userData = $res;
-			
+			//- Set structuration data -//
+			$this -> userData = array(
+				'id'		=> $userData[ 0 ][ 'id' ], 
+				'username'	=> $userData[ 0 ][ 'username' ], 
+				'first_name'=> $userData[ 0 ][ 'first_name' ], 
+				'last_name'	=> $userData[ 0 ][ 'second_name' ], 
+				'gender'	=> $userData[ 0 ][ 'gender' ], 
+				'country'	=> $userData[ 0 ][ 'country' ], 
+				'language'	=> $userData[ 0 ][ 'language' ], 
+				//TODO: tools
+				'role'	=> array(
+					'id'	=> $userData[ 0 ][ 'Role' ][ 'id' ], 
+					'title'	=> $userData[ 0 ][ 'Role' ][ 'title' ]
+				), 
+				'email'	=> array(
+					'id'		=> $userData[ 0 ][ 'Email' ][ 0 ][ 'id' ], 
+					'address'	=> $userData[ 0 ][ 'Email' ][ 0 ][ 'address' ]
+				)
+			);
+						
 			return new Zend_Auth_Result(
-				Zend_Auth_Result :: SUCCESS, $res -> id, array()
+				Zend_Auth_Result :: SUCCESS, $this -> userData[ 'id' ], array()
 			);
 		}else
 			{
@@ -82,7 +97,8 @@ class Auth_Adapter
 			}
 	}
 	
-	public function getUserData()// : array
+	//- Get params about authenticate user -//
+	public function getUserData()// : array.asotiation
 	{
 		return $this -> userData;
 	}

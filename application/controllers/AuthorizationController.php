@@ -48,7 +48,9 @@ class AuthorizationController extends Zend_Controller_Action
 					$this -> session -> user = $adapter -> getUserData();
 					
 					//- Redirect to default -//
-					$this -> _redirect( '/' . strtolower( $this -> session -> user -> role ) );
+					$this -> _redirect( 
+						'/' . strtolower( $this -> session -> user[ 'role' ][ 'title' ] ) 
+					);
 				}else
 					{
 						//- Display message: Error, authenticate -//

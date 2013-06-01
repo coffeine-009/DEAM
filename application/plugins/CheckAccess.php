@@ -48,7 +48,7 @@ class CheckAccess
 		if( Zend_Auth :: getInstance() -> hasIdentity() )
 		{
 			$session = new Zend_Session_Namespace( 'system.user' );
-			$this -> role = $session -> user -> role;
+			$this -> role = $session -> user[ 'role' ][ 'title' ];
 		}
 		
 		//- Get resource -//
@@ -60,7 +60,7 @@ class CheckAccess
 		$resource = $Request -> getControllerName();
 		
 		//- Test params -//
-		if( 
+		if( false&&
 			!( 
 				Zend_Validate :: is( $resource, 'InArray', array( $resources ) ) 
 				&& $this -> _acl -> isAllowed( $this -> role, $resource, 'view' ) 
