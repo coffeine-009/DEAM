@@ -26,7 +26,7 @@ class Application_Form_Registration
     public function init()
     {
         //- Init -//
-		$this -> setAction( '/authorization/registration' )//TODO: change
+		$this -> setAction( '/registration' )//TODO: change
 			-> setMethod( 'post' );
 			
 		//- Content :: Main :: Fields -//
@@ -156,6 +156,7 @@ class Application_Form_Registration
 				)
 				-> setRequired( true )
 				-> addValidator( new Zend_Validate_NotEmpty() );
+				
 				
 		$submit = new Zend_Form_Element_Submit( 'submit' );
 			$submit -> setLabel( 'Register' );
@@ -305,6 +306,7 @@ class Application_Form_Registration
 						'class'	=> 'license'
 					)
 				)
+					
 			)
 		);
 		

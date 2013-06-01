@@ -16,13 +16,25 @@ class ProfessorController extends Zend_Controller_Action
 	public function displayshortprofileAction() /*short information about profile  professors*/
 	{
 		
-		$this->view->array_name=$array; /*here mast be information name professor and his status*/
+		
+		
+		$Resp= Doctrine_Query::create()		
+			->select('u.first_name, u.second_name, u.father_name, u.post')
+			->from('DEAM_User u');
+
+			//->where("u.id <> null")
+			//->addFrom('u.ScientificActivity sa');
+			//->addFrom('sa.Rank r')
+			//->orderBy('r.rank');
+				
+		$this->view->professors = $Resp->fetchArray();
+		echo '  ---  here';
 	}
 		
 	public function displayprofileAction() /*information about profile  professors*/
 	{
 		
-		$this->view->name='П.І.Б.';
+		$this -> view->name='П.І.Б.';
 		
 		$this->view->general_information='general_information';
 		
@@ -52,6 +64,7 @@ class ProfessorController extends Zend_Controller_Action
 		echo '<pre>';
 			var_dump($tmp->delete());
 		echo '</pre></br>';
+        //dddddddd
 		*/
 		
 	}
