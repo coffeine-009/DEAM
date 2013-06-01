@@ -185,6 +185,15 @@ CREATE TABLE `publication`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
+/* -# Rank of professor[doc, prof] #- */
+CREATE TABLE `rank`(
+	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
+	`rank`			TEXT, 
+
+	/* Keys */
+	PRIMARY KEY( `id` )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
 
 /* -# Scientific_activity #- */
 CREATE TABLE `scientific_activity`(
@@ -346,13 +355,14 @@ CREATE TABLE `consultation`(
 	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
 	`id_user`			INTEGER NOT NULL, 		/* Id of user 		*/
 
-	`date_from`			TIMESTAMP, /* Title of concurces*/
-	`date_to`			TIMESTAMP, /* Description about current concurces	*/
+	`date_from`			TIMESTAMP NULL, /* Title of concurces*/
+	`date_to`			TIMESTAMP NULL, /* Description about current concurces	*/
 	
-	`creation`			TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+	`creation`			TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, 
 
 	/* Keys */
 	PRIMARY KEY( `id` ), 
+
 	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
 		ON UPDATE CASCADE
 		ON DELETE RESTRICT
