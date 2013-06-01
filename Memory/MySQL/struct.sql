@@ -334,3 +334,20 @@ CREATE TABLE `concurces`(
 		ON DELETE RESTRICT
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
+
+
+/*#- Administration -#  */
+/* -# Queue for activations #- */
+CREATE TABLE `account_activation`(
+	`id`			INTEGER AUTO_INCREMENT, 
+	`id_user`		INTEGER NOT NULL, 
+	`secure_hach`	VARCHAR( 256 ), 
+	`creation`		TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+
+	/* Keys */
+	PRIMARY KEY( `id` ), 
+
+	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+)

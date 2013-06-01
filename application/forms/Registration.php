@@ -26,7 +26,7 @@ class Application_Form_Registration
     public function init()
     {
         //- Init -//
-		$this -> setAction( '/authorization/registration' )//TODO: change
+		$this -> setAction( '/registration' )//TODO: change
 			-> setMethod( 'post' );
 			
 		//- Content :: Main :: Fields -//

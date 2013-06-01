@@ -147,7 +147,7 @@ class AuthorizationController extends Zend_Controller_Action
 		        		}
 		        		
 		        		//- Send activation letter -//
-		        		
+		        		$letter = new Coffeine_Messenger_Mail_Main();
 		        		//TODO: Send email and create user
 		        		        		
 		        		
