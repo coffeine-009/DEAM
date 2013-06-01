@@ -227,6 +227,14 @@ CREATE TABLE `scientific_activity`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
+CREATE TABLE `rank`(
+	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
+	`rank`			TEXT, 
+
+	/* Keys */
+	PRIMARY KEY( `id` )
+)
+ENGINE = InnoDB CHARACTER SET = utf8;
 
 /* -# Reseach seminar #- */
 CREATE TABLE `reseach_seminar`(
