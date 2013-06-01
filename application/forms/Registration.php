@@ -30,21 +30,6 @@ class Application_Form_Registration
 			-> setMethod( 'post' );
 			
 		//- Content :: Main :: Fields -//
-		//- Username -//		
-		$username = new Zend_Form_Element_Text( 'username' );
-			$username -> setLabel( 'Username' ) 
-				-> setOptions( 
-					array(
-						'id'		=> 'username', 					
-						//- Params -//
-						'size' 		=> '30', 
-						'maxlength'	=> '32'
-					)
-				)
-				-> setRequired( true )
-				-> addValidator( new Zend_Validate_NotEmpty() )
-				-> addValidator( new Zend_Validate_Alnum() );
-
 		//- Password -//
 		$password = new Zend_Form_Element_Password( 'password' );
 			$password -> setLabel( 'Password' ) 
@@ -147,11 +132,20 @@ class Application_Form_Registration
 						'maxlength'	=> '40'
 					)
 				)
-				-> setRequired( true )
-				-> addValidator( new Zend_Validate_NotEmpty() );
+				//-> setRequired( true )
+				//-> addValidator( new Zend_Validate_NotEmpty() );
+				-> addValidator( new Zend_Validate_Regex( '/^[^\<\>]*$/' ) );
 
 				
 		//- License -//
+		$licenseText = new Zend_Form_Element_Textarea( 'license_text' );
+			$licenseText -> setOptions(
+				array(
+					'rows'	=> 8, 
+					'cols'	=> 50
+				)
+			);
+				
 		$license = new Zend_Form_Element_Checkbox( 'license' );
 			$license -> setLabel( 'I confirm license' ) 
 				-> setOptions( 
@@ -171,7 +165,7 @@ class Application_Form_Registration
 		//- Add elements to form -//
 		$this -> addElements(
 			array(
-				$username, 
+				$email, 
 				$password, 
 				$password_r
 			)
@@ -181,7 +175,7 @@ class Application_Form_Registration
 		//- Create group for display -//
 		$this -> addDisplayGroup(
 			array( 
-				'username', 
+				'email', 
 				'password', 
 				'password_r'
 			), 
@@ -217,7 +211,7 @@ class Application_Form_Registration
 		//- Contacts -//
 		$this -> addElements(
 			array(
-				$email, 
+				//$email, 
 				$phone, 
 				$webSite
 			)
@@ -225,7 +219,7 @@ class Application_Form_Registration
 
 		$this -> addDisplayGroup(
 			array(
-				'email', 
+				//'email', 
 				'phone', 
 				'web_site'
 			), 
@@ -233,6 +227,25 @@ class Application_Form_Registration
 		);
 		$Contacts = $this -> getDisplayGroup( 'contacts' )
 			-> setLegend( 'Contacts' );
+			
+			
+		$this -> addElements(
+			array(
+				$licenseText, 
+				$license
+			)
+		);
+		
+		//- Create group for display -//
+		$this -> addDisplayGroup(
+			array( 
+				'license_text', 
+				'license'		
+			), 
+			'License' 
+		);		
+		$License = $this -> getDisplayGroup( 'License' )
+			-> setLegend( 'License' );
 			
 		//- Tools -//
 		$authData -> setDecorators(
@@ -280,10 +293,25 @@ class Application_Form_Registration
 		);
 
 		
+		//- License -//
+		$License -> setDecorators(
+			array(
+				'FormElements', 
+				'Fieldset', 
+				array(
+					'HtmlTag', 
+					array(
+						'tag'	=> 'div', 
+						'class'	=> 'license'
+					)
+				)
+			)
+		);
+		
 		//- Submit -//
 		$this -> addElements(
 			array(
-				$license, 
+				//$license, 
 				$submit
 			)
 		);

@@ -45,12 +45,12 @@ class Auth_Adapter
 			-> leftJoin( "e.User u" )
 			-> leftJoin( "u.Role" )*/			
 			//- Better query -//
-			-> from( "Jms_User u" )
+			-> from( "DEAM_User u" )
 			-> addFrom( "u.Email e" )
 			-> addFrom( "u.Role r" )
 			//- Where -//
 			-> where( 
-				"address = '{$this -> username}' 
+				"contact = '{$this -> username}' 
 				AND 
 				password = MD5( '{$this -> password}' )" 
 			)		

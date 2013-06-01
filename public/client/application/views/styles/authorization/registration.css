@@ -1,0 +1,42 @@
+
+.license
+{
+	
+}
+
+.license fieldset #license_text-label
+{
+	display : block;
+}
+
+.license fieldset #license_text-element
+{
+	display : block;
+	margin-bottom	: 10px;
+}
+
+.license fieldset #license-label
+{
+	display	: inline;
+}
+
+	.license fieldset #license-label label
+	{
+		margin	: 0px;
+		padding	: 0px;
+	}
+
+.license fieldset #license-element
+{
+	display	: inline;
+	float	: left;
+	margin	: 0;
+	padding	: 0;
+	width	: 25px;
+}
+	
+	.license fieldset #license-element input
+	{
+		margin	: 3px;
+		padding	: 0px;
+	}

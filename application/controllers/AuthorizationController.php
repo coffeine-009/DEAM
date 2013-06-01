@@ -74,6 +74,7 @@ class AuthorizationController extends Zend_Controller_Action
 	
     }
 
+    //- Sign out -//
     public function logoutAction()
     {
 		//- Destroy user session -//
@@ -81,8 +82,19 @@ class AuthorizationController extends Zend_Controller_Action
 		Zend_Session :: destroy();
     }
 
+    //- Registration -//
     public function registrationAction()
     {
+    	//- Include css -//
+    	$this -> view -> headLink() -> appendStylesheet(
+    		'/client/application/views/styles/authorization/registration.css'
+    	);
+    	
+    	//- Include JS -//
+    	$this -> view -> headScript() -> appendFile(
+    		'/client/application/views/scripts/authorization/registration.js'
+    	);
+    	
     	//- Create form of registration -//
         $form = new Application_Form_Registration();
         
@@ -92,11 +104,56 @@ class AuthorizationController extends Zend_Controller_Action
         	//- Validation submited form -//
         	if( $form -> isValid( $this -> getRequest() -> getPost() ) )
         	{
-        		//TODO: Send email and create user
-        		        		
+        		//- Get data -//
+        		$data = $form -> getValues();
         		
-        		//- Registration success -//
-        		$this -> _redirect( '/registration/success' );
+        		if( $data[ 'password' ] != $data[ 'password_r' ] || !$data[ 'license' ] )
+        		{
+        			$form -> addErrorMessage( 'Passwords not equal' );
+        		}else
+        			{        		
+		        		//- Create new user -//
+		        		$user = new DEAM_User();
+		        			$user -> password = md5( $data[ 'password' ] );
+		        			$user -> first_name = $data[ 'first_name' ];
+		        			$user -> second_name = $data[ 'second_name' ];
+		        			$user -> father_name = $data[ 'father_name' ];
+		        			
+		        		$user -> save();
+		        		
+		        		//- Add contacts -//
+		        		//- Email -//
+		        		$email = new DEAM_Email();
+		        			$email -> id_user = (int)$user -> id;
+		        			$email -> contact = $data[ 'email' ];
+		        			
+		        		$email -> save();
+		        		
+		        		//- Phone -//
+		        		$phone = new DEAM_Phone();
+		        			$phone -> id_user = (int)$user -> id;
+		        			$phone -> contact = $data[ 'phone' ];
+		        			
+		        		$phone -> save();
+		        		
+		        		//- Web site -//
+		        		if( !empty( $data[ 'web_site' ] ) )
+		        		{
+		        			$web_site = new DEAM_Website();
+		        				$web_site -> id_user = (int)$user -> id;
+		        				$web_site -> contact = $data[ 'web_site' ];
+		        				
+		        			$web_site -> save();
+		        		}
+		        		
+		        		//- Send activation letter -//
+		        		
+		        		//TODO: Send email and create user
+		        		        		
+		        		
+		        		//- Registration success -//
+		        		$this -> _redirect( '/registration/success' );
+        			}
         	}
         }
         
