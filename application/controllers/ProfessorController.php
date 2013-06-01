@@ -52,6 +52,7 @@ class ProfessorController extends Zend_Controller_Action
 		echo '<pre>';
 			var_dump($tmp->delete());
 		echo '</pre></br>';
+        //dddddddd
 		*/
 		
 	}
