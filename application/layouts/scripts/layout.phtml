@@ -27,6 +27,56 @@
 
 	<div class="container">
 		<div class="row">
+		
+			<!-- Panel :: Top -->
+			<div class="span12">
+				<div class="navigation hidden-phone">
+					<div class="navbar">
+						<div class="navbar-inner">
+							<!--<a class="brand hidden-phone"
+								href="./Responsive Design Twitter Bootstrap_files/Responsive Design Twitter Bootstrap.htm"
+							>
+								<i class="icon-home"></i>
+							</a>
+							-->
+							
+							
+							<!--
+							<ul class="nav">
+								<li class="active"><a href="#">Link1</a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="#">Link2</a></li>
+								<li class="divider-vertical"></li>
+								<li><a href="#">Link3</a></li>
+								<li class="divider-vertical hidden-phone"></li>
+							</ul>
+							-->
+							
+							<div style = "display : inline-block;">
+								
+								<?php if( !isset( $this -> user ) ): ?>
+								<a href = "/login"><?= $this -> translate( 'Login' ); ?></a> | 
+								<a href = "/registration"><?= $this -> translate( 'Registration' ); ?></a>
+								<?php else: ?>
+								<a><?= $this -> user[ 'first_name' ]; ?></a> | 
+								<a href = "/logout"><?= $this -> translate( 'Logout' ); ?></a>
+								<?php endif; ?>
+								
+							</div>
+							
+							<!-- Language -->
+							<div style = "display : inline-block; float : right;">
+								<a href = "">en</a> | 
+								<a href = "">ua</a>
+							</div>
+												
+						</div>
+	
+					</div>
+				</div>
+			</div>
+		
+		
 			<div class="span12">
 			
 				<div id="header">
@@ -51,12 +101,15 @@
 					<div class="navigation hidden-phone">
 						<div class="navbar">
 							<div class="navbar-inner">
-								<a class="brand hidden-phone"
+								<!--<a class="brand hidden-phone"
 									href="./Responsive Design Twitter Bootstrap_files/Responsive Design Twitter Bootstrap.htm"
 								>
 									<i class="icon-home"></i>
 								</a>
+								-->
 								
+								<?= $this -> navigation() -> menu() -> setUlClass( 'nav' ); ?>
+								<!--
 								<ul class="nav">
 									<li class="active"><a href="#">Link1</a></li>
 									<li class="divider-vertical"></li>
@@ -65,13 +118,17 @@
 									<li><a href="#">Link3</a></li>
 									<li class="divider-vertical hidden-phone"></li>
 								</ul>
-		
-								<form class="form-search">
-									<div class="input-append">
-										<input type="text" class="span2 search-query">
-										<button type="submit" class="btn">Search</button>
-									</div>
-								</form>
+								-->
+								
+								<div style = "display:inline-block; float : right; margin-top : 15px;">
+									<form class="form-search">
+										<div class="input-append">
+											<input type="text" class="span2 search-query">
+											<button type="submit" class="btn">Search</button>
+										</div>
+									</form>
+								</div>
+								
 							</div>
 		
 						</div>

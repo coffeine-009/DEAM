@@ -1,11 +1,16 @@
 <?php
 
-class IndexController extends Zend_Controller_Action
+require_once APPLICATION_PATH . '/controllers/BaseController.php';
+
+class IndexController
+	extends
+		//Zend_Controller_Action
+		BaseController
 {
 
     public function init()
     {
-        /* Initialize action controller here ---------------------*/
+		parent :: init();
     }
 
     public function indexAction()

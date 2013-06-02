@@ -1,1 +1,39 @@
-<br /><br /><center>View script for controller <b>Authorization</b> and script/action name <b>logout</b></center>
+<!-- Base page -->
+<div class="row">
+	
+	<?php
+	
+		echo
+		$this -> partial(
+			'widgets/navigation.phtml', 
+			//- Params -//
+			array(
+				'label'	=> 'Actions', 
+				'items'	=> array(
+					array(
+						'label'	=> 'Login', 
+						'uri'	=> '/login'
+					), 
+					array(
+						'label'	=> 'Registration', 
+						'uri'	=> '/registration'
+					)
+				)
+			)
+		);
+	
+	?>
+	
+	 <div class="span9">
+		 <div class="content">
+			 <div class="article">     
+			 
+			 	<h1>Bye-bye <?php echo $this -> userFirstName; ?>!</h1>
+			 
+				<!-- TODO -->
+				
+			 </div>
+		</div>
+	</div>
+ 
+</div>

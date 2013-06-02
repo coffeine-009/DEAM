@@ -1,15 +1,36 @@
 <!-- Base page -->
 <div class="row">
 	
-	 <div class="span3 hidden-phone">
-		 <div class="content">
-			 <div class="article">
-				
-				Navigation
-			     
-			</div>
-		</div>
-	</div>
+	<?php
+	
+		echo
+		$this -> partial(
+			'widgets/navigation.phtml', 
+			//- Params -//
+			array(
+				'label'	=> 'Journal', 
+				'items'	=> array(
+					array(
+						'label'	=> 'List', 
+						'uri'	=> '/journals'
+					), 
+					array(
+						'label'	=> 'Add', 
+						'uri'	=> '/journal/add'
+					), 
+					array(
+						'label'	=> 'Delete', 
+						'uri'	=> '/journal/delete/' . $this -> journal[ 'id' ]
+					), 
+					array(
+						'label'	=> 'Edit', 
+						'uri'	=> '/journal/edit/' . $this -> journal[ 'id' ]
+					)
+				)
+			)
+		);
+	
+	?>
 	
 	 <div class="span9">
 		 <div class="content">

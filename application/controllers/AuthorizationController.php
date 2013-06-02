@@ -1,12 +1,17 @@
 <?php
 
-class AuthorizationController extends Zend_Controller_Action
+require_once APPLICATION_PATH . '/controllers/BaseController.php';
+
+class AuthorizationController
+	extends
+		//Zend_Controller_Action
+		BaseController
 {
 
     public function init()
     {
-        /* Initialize action controller here */
-    	$this -> view -> errors = array();
+		parent :: init();
+//    	$this -> view -> errors = array();
     }
 
     public function indexAction()
@@ -100,6 +105,9 @@ class AuthorizationController extends Zend_Controller_Action
     //- Sign out -//
     public function logoutAction()
     {
+    	$this -> view -> user = null;
+    	$this -> view -> userFirstName = $this -> session -> user[ 'first_name' ];
+    	
 		//- Destroy user session -//
 		Zend_Auth :: getInstance() -> clearIdentity();
 		Zend_Session :: destroy();

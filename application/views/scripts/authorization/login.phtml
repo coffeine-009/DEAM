@@ -1,3 +1,40 @@
-
-<?php echo implode( '<br>', $this -> errors ); ?>
-<?php echo $this -> form; ?>
+<!-- Base page -->
+<div class="row">
+	
+	<?php
+	
+		echo
+		$this -> partial(
+			'widgets/navigation.phtml', 
+			//- Params -//
+			array(
+				'label'	=> 'Actions', 
+				'items'	=> array(
+					array(
+						'label'	=> 'Forgot password', 
+						'uri'	=> '/'
+					), 
+					array(
+						'label'	=> 'Registration', 
+						'uri'	=> '/registration'
+					)
+				)
+			)
+		);
+	
+	?>
+	
+	 <div class="span9">
+		 <div class="content">
+			 <div class="article">     
+			 
+			 	<h1></h1>
+			 
+				<?php echo implode( '<br>', $this -> errors ); ?>
+				<?php echo $this -> form; ?>
+				
+			 </div>
+		</div>
+	</div>
+ 
+</div>
