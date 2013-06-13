@@ -387,3 +387,20 @@ CREATE TABLE `account_activation`(
 		ON UPDATE CASCADE
 		ON DELETE CASCADE
 )
+ENGINE = InnoDB CHARACTER SET = utf8;
+
+/* -# Queue for forgot #- */
+CREATE TABLE `account_forgot`(
+	`id`			INTEGER AUTO_INCREMENT, 
+	`id_user`		INTEGER NOT NULL, 
+	`secure_hash`	VARCHAR( 256 ), 
+	`creation`		TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
+
+	/* Keys */
+	PRIMARY KEY( `id` ), 
+
+	FOREIGN KEY( `id_user` ) REFERENCES `user`( `id` )
+		ON UPDATE CASCADE
+		ON DELETE CASCADE
+)
+ENGINE = InnoDB CHARACTER SET = utf8;

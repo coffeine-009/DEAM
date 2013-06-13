@@ -1,0 +1,45 @@
+<!-- Base page -->
+<div class="row">
+	
+	 <div class="span3 hidden-phone">
+		 <div class="content">
+			 <div class="article">
+				
+				Navigation
+			     
+			</div>
+		</div>
+	</div>
+	
+	 <div class="span9">
+		 <div class="content">
+			 <div class="article">     
+			 
+			 	<h1>Registration success</h1>
+			 
+				<?php
+				
+					if( !empty( $this -> msg ) )
+					{
+						echo 
+						'<div class = "msg">
+							<ul>';
+				
+						foreach( $this -> msg as $msg )
+						{
+							echo '<li>', $this -> translate( $msg ), '</li>', "\n";			
+						}
+						
+						echo 
+							'</ul>
+						</div>';
+						
+					}
+					
+				?>
+				
+			 </div>
+		</div>
+	</div>
+ 
+</div>

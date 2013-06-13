@@ -28,12 +28,17 @@
 		 <div class="content">
 			 <div class="article">     
 			 
-			 	<h1></h1>
+			 	<h1><?= $this -> translate( 'Forgot' ); ?></h1>
 			 
-				<?php echo implode( '<br>', $this -> errors ); ?>
-				<?php echo $this -> form; ?>
-				<div>
-					<a href = "/forgot"><?= $this -> translate( 'Forgot' ); ?></a>
+			 	<div>
+			 		<?= $this -> form; ?>
+			 		<!--<form action = "/forgot" method = "post">
+					
+						<label>Enter your email</label>
+						<input type = "email" name = "email" />
+						<input type = "submit" value = "<?= $this -> translate( 'Send' ); ?>" />
+					
+					</form>-->
 				</div>
 				
 			 </div>

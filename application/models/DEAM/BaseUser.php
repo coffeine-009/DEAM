@@ -18,6 +18,7 @@ Doctrine_Manager::getInstance()->bindComponent('DEAM_User', 'doctrine');
  * @property integer $active
  * @property timestamp $creation
  * @property DEAM_Role $Role
+ * @property Doctrine_Collection $AccountForgot
  * @property Doctrine_Collection $Book
  * @property Doctrine_Collection $Concurces
  * @property Doctrine_Collection $Consultation
@@ -135,6 +136,10 @@ abstract class DEAM_BaseUser extends Doctrine_Record
         $this->hasOne('DEAM_Role as Role', array(
              'local' => 'id_role',
              'foreign' => 'id'));
+
+        $this->hasMany('DEAM_AccountForgot as AccountForgot', array(
+             'local' => 'id',
+             'foreign' => 'id_user'));
 
         $this->hasMany('DEAM_Book as Book', array(
              'local' => 'id',

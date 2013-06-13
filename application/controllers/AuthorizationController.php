@@ -83,7 +83,7 @@ class AuthorizationController
 					{
 						//- Display message: Error, authenticate -//
 						array_push( 
-	    					$this -> view -> errors, 
+	    					$this -> errors, 
 	    					'Error, Can not authentificate user. Repeat, please!'
 	    				);
 					}
@@ -113,6 +113,92 @@ class AuthorizationController
 		Zend_Session :: destroy();
     }
 
+    
+    //- Forgot -//
+    public function forgotAction()
+    {
+    	//- Validation -//
+    	$input = new Application_Form_Forgot();
+    	
+    	//- Init view -//
+    	$this -> view -> form = $input;
+    	
+    	if( $this -> getRequest() -> isPost() )
+    	{
+    		//- Test -//
+    		if( $input -> isValid( $this -> getRequest() -> getPost() ) )
+    		{
+    			//- Test -//
+    			$q = Doctrine_Query :: create()
+    				-> select( 'e.contact contact, u.id id' )
+    				-> from( 'DEAM_Email e' )
+    				-> addFrom( "e.User u" )
+    				-> where( "e.contact = '{$input -> getValue( 'email' )}'" )
+    				-> limit( 1 );
+    				
+    			$data = $q -> fetchArray();
+    			
+    			if( count( $data ) === 0 )
+    			{
+    				throw new Zend_Controller_Action_Exception( 'User not found' );
+    			}
+
+    			//- Generate secure hash -//
+    			$sh = new Coffeine_Crypt_PassGenerator( 8 );
+    				$sh -> generate();
+    				
+    			//- Save secure hash to DB -//
+    			$forgot = Doctrine :: getTable( 'DEAM_User' )
+    				-> find( (int)$data[ 0 ][ 'id' ] );
+    				
+    				$forgot -> password = md5( $sh -> getPassword() );
+    				
+    			$forgot -> save();
+    			
+    			//- Send email: secure hash -//
+    			//- Send activation letter -//
+        		$letter = new Coffeine_Messenger_Mail_Main(
+					$data[ 0 ][ 'contact' ],
+			    	'Registration. deam.if.ua'
+			    );
+			    $letter -> setTemplate(
+			    	APPLICATION_PATH . '/templates/',
+			    	'LetterForgot_uk_UA.phtml', // . Zend_Registry :: get( 'Zend_Locale' ) . '.phtml',
+			    	array(				    	 
+					    'password'	=> $sh -> getPassword()			    		
+			    	)
+			    );
+	    		$letter -> setAddressSrc( 'DEAM' );
+	    		$letter -> init();
+			    		 
+	    		if( !$letter -> send() )
+	    		{
+	    			//- ERROR -//
+	    			throw new Zend_Controller_Action_Exception( 'Email not sent' );
+	    		}
+			    		 
+	    		//- Add message -//
+	    		$this -> _helper -> flashMessenger -> addMessage(
+		    		'Recovery access is successfull. Pass was sent'
+	    		);//TODO: Other msg
+	    		
+        		//- Registration success -//
+        		return $this -> _redirect( '/forgot/success' );
+    		}else
+    			{
+    				//- ERROR :: Invalid input -//
+    				$this -> errors[] = 'Email is not valid';
+    			}
+    	}
+    }
+    
+    //- Forgot success -//
+    public function forgotsuccessAction()
+    {
+    	$this -> view -> msg = $this -> _helper -> flashMessenger -> getMessages();
+    }
+    
+       
     //- Registration -//
     public function registrationAction()
     {
@@ -193,7 +279,7 @@ class AuthorizationController
 		        			
 		        		//- Send activation letter -//
 		        		$letter = new Coffeine_Messenger_Mail_Main(
-							"vitalij-bass@meta.ua",
+							$email -> contact,
 					    	'Registration. deam.if.ua'
 					    );
 					    $letter -> setTemplate(
