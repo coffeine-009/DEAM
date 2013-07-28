@@ -40,12 +40,12 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		);
 	}
 	
-/*	
+	
 	///	*** Lacalization	***	///
 	public function _initLocale()
 	{
 		//- Get support locales -//
-		$locales = array( 'uk_UA', 'ru_RU' );//TODO
+		$locales = array( 'en_GB', 'en_US', 'uk_UA', 'ru_RU' );//TODO
 		
 		//- Default locale -//
 		$locale = null;
@@ -83,7 +83,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 			catch( Zend_Locale_Exception $Exception )
 			{
 				//- Set default language -//
-				$locale = new Zend_Locale( 'uk_UA' );
+				$locale = new Zend_Locale( 'en_GB' );
 			}
 		}
 		
@@ -111,7 +111,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 		Zend_Registry :: getInstance() 
 			-> set( 'Zend_Translate', $translate );
 	}
-*/
+
 	//- Doctrine -//
 	public function _initDoctrine()
 	{

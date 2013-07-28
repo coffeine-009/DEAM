@@ -190,7 +190,7 @@ ENGINE = InnoDB CHARACTER SET = utf8;
 
 /* -# Rank of professor[doc, prof] #- */
 CREATE TABLE `rank`(
-	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
+	`id`			INTEGER NOT NULL AUTO_INCREMENT, /* Identificator	*/
 	`rank`			TEXT, 
 
 	/* Keys */
@@ -227,15 +227,15 @@ CREATE TABLE `scientific_activity`(
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
 
-CREATE TABLE `rank`(
+/*CREATE TABLE `rank`(
 	`id`				INTEGER AUTO_INCREMENT, /* Identificator	*/
-	`rank`			TEXT, 
+/*	`rank`			TEXT, 
 
 	/* Keys */
-	PRIMARY KEY( `id` )
+/*PRIMARY KEY( `id` )
 )
 ENGINE = InnoDB CHARACTER SET = utf8;
-
+*/
 /* -# Reseach seminar #- */
 CREATE TABLE `reseach_seminar`(
 	`id`				INTEGER AUTO_INCREMENT, /* Identificator 	*/

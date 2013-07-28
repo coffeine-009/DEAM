@@ -14,4 +14,8 @@ search.uri = "/search"
 ;//- About -//
 about.label = "About"
 about.uri = "/about"
+about.pages.author.label = "Author"
+about.pages.author.uri = "/about/author"
 
+[author:guest]
+;

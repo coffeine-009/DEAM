@@ -1,6 +1,5 @@
-DEAM
-====
+***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
+*				Differencial Equation and Applied Mathematic				*
+***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	***	*
 
-Differencial Equation and Applied Mathematic
-
-UA
+Language support: en, ua, ru
